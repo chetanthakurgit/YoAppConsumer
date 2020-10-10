@@ -3,7 +3,9 @@ package com.isoftzone.yoappstore.util;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,6 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
+
 import com.isoftzone.yoappstore.R;
 
 import java.util.Objects;
@@ -21,13 +26,15 @@ public abstract class CommonDialog extends Dialog implements View.OnClickListene
     private Context context;
     private String message;
     private String checkSting;
+    private int color;
     private String yesName = "", noName = "";
 
-    public CommonDialog(Context context, String message, String checkSting) {
+    public CommonDialog(Context context, String message, String checkSting, int color) {
         super(context);
         this.context = context;
         this.message = message;
         this.checkSting = checkSting;
+        this.color = color;
     }
 
     public CommonDialog(Context context, String message, String checkSting, String yesName, String noName) {
@@ -56,6 +63,12 @@ public abstract class CommonDialog extends Dialog implements View.OnClickListene
         this.getWindow().setAttributes(lWindowParams);
         Objects.requireNonNull(this.getWindow()).getAttributes().windowAnimations = R.style.MsgDialogAnimation;
         TextView tvMsg = this.findViewById(R.id.tvMsg);
+      /*  TextView tvheader = this.findViewById(R.id.tvheader);
+        tvheader.setBackgroundtint*/
+
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(context, R.drawable.top_rounded_corner);
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable,color);
 
         this.findViewById(R.id.ll_parent).setOnClickListener(this);
         Button btnNo = this.findViewById(R.id.btnNo);

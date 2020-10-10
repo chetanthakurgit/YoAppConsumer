@@ -10,12 +10,14 @@
     app:backgroundTint="@color/white">
 
     <TextView
+        android:id="@+id/tvheader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/top_rounded_corner"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
+        android:backgroundTint="@color/black"
         android:padding="@dimen/size_10dp"
         android:text="Message"
         android:textColor="@color/white"

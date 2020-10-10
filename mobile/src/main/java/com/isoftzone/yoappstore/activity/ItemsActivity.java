@@ -45,23 +45,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ItemsActivity extends BaseActivity implements
-        HeaderAdapter.Listner,
-        CommonInterfaces.get_product,
-        ItemsAdapter.Listner,
-        SizeRecyAdapter.Listner,
-        TextWatcher, FilterSortingDialog.ListnerSorting {
+public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner, CommonInterfaces.get_product,
+        ItemsAdapter.Listner, SizeRecyAdapter.Listner, TextWatcher, FilterSortingDialog.ListnerSorting {
 
-    ActivityItemsBinding binding;
-    ItemsAdapter itemsAdapter;
-    private HeaderAdapter headerAdapter;
-    String catId, sub_catId;
-    ArrayList<SubCategoryBean> subList;
-    ArrayList<ProductBean> productBeanArrayList, arrayListTemporary;
+    private ActivityItemsBinding binding;
+    private ItemsAdapter itemsAdapter;
+    private String catId, sub_catId;
+    private ArrayList<ProductBean> productBeanArrayList, arrayListTemporary;
     private Uri fileUri;
-    boolean hasSubCate = false;
-    int pageNum = 1;
-    boolean isSort = false;
+    private boolean hasSubCate = false;
+    private int pageNum = 1;
+    private boolean isSort = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +75,7 @@ public class ItemsActivity extends BaseActivity implements
 
         if (hasSubCate) {
             sub_catId = getIntent().getStringExtra("sub_catId");
-            subList = (ArrayList<SubCategoryBean>) getIntent().getSerializableExtra("subList");
+            ArrayList<SubCategoryBean> subList = (ArrayList<SubCategoryBean>) getIntent().getSerializableExtra("subList");
             binding.headerRecyclerView.setVisibility(View.VISIBLE);
             for (int i = 0; i < subList.size(); i++) {
                 if (subList.get(i).getId().equalsIgnoreCase(sub_catId)) {
@@ -89,16 +83,17 @@ public class ItemsActivity extends BaseActivity implements
                     break;
                 }
             }
-
-            headerAdapter = new HeaderAdapter(this, subList, imageLoader, this);
+            HeaderAdapter headerAdapter = new HeaderAdapter(this, subList, imageLoader, this);
             binding.headerRecyclerView.setAdapter(headerAdapter);
         } else {
             binding.headerRecyclerView.setVisibility(View.GONE);
         }
 
-        itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this);
-        binding.itemsRecyclerView.setAdapter(itemsAdapter);
+        setItemsAdapter();
 
+      /*  itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this);
+        binding.itemsRecyclerView.setAdapter(itemsAdapter);
+*/
         binding.checkoutTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +118,19 @@ public class ItemsActivity extends BaseActivity implements
 
                 FilterSortingDialog sortingDialog = new FilterSortingDialog(ItemsActivity.this, "forSorting", "", ItemsActivity.this);
                 sortingDialog.show();
+            }
+        });
+
+        cartCountTextView.setOnClickListener(null);
+        cartCountTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SelectedProduct.getInstance().getSelectedProductList().size() > 0) {
+                    startActivity(new Intent(ItemsActivity.this, ReviewItemsActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(ItemsActivity.this, "Please select at least one item", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -180,7 +188,12 @@ public class ItemsActivity extends BaseActivity implements
                 }
             }
         }
+        if (itemsAdapter != null) {
+            itemsAdapter.notifyDataSetChanged();
+        }
+    }
 
+    private void setItemsAdapter() {
         itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this);
         binding.itemsRecyclerView.setAdapter(itemsAdapter);
     }

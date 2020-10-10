@@ -33,33 +33,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    //implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    //implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.google.firebase:firebase-messaging:20.3.0'
     implementation 'com.google.android.libraries.places:places:2.4.0'
-
-  /*  implementation 'com.google.firebase:firebase-analytics:17.5.0'
-    implementation 'com.google.firebase:firebase-auth:19.4.0'
-    implementation 'com.google.firebase:firebase-database:19.5.0'
-    implementation 'com.google.firebase:firebase-messaging:20.3.0'
-    implementation 'com.google.firebase:firebase-config:19.2.0'
-    implementation 'com.google.firebase:firebase-storage:19.2.0'*/
-
-    /*implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.1.0'
-    implementation 'com.google.android.libraries.places:places:2.4.0'
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
-    implementation 'com.google.android.material:material:1.3.0-alpha03'*/
 
     //Cash free SDK
     implementation files('libs/cashfreesdk-1.4.9.6-release.aar')
@@ -69,7 +54,7 @@ dependencies {
 
     //doPayment - If OTP Auto read enabled
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
 
     //doUPIPayment
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
@@ -84,6 +69,22 @@ dependencies {
 
     //animation's
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
+
+    //implementation 'com.google.android.material:material:1.2.1'
+    //implementation 'androidx.cardview:cardview:1.0.0'
+
+    /*  implementation 'com.google.firebase:firebase-analytics:17.5.0'
+      implementation 'com.google.firebase:firebase-auth:19.4.0'
+      implementation 'com.google.firebase:firebase-database:19.5.0'
+      implementation 'com.google.firebase:firebase-messaging:20.3.0'
+      implementation 'com.google.firebase:firebase-config:19.2.0'
+      implementation 'com.google.firebase:firebase-storage:19.2.0'*/
+
+    /*implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+    implementation 'com.google.android.libraries.places:places:2.4.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.material:material:1.3.0-alpha03'*/
 
 }
 apply plugin: 'com.google.gms.google-services'
