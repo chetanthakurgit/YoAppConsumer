@@ -190,7 +190,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         holder.plusTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 int qty = bean.getQtyActual();
                 qty++;
                 bean.setQtyActual(qty);
@@ -205,7 +204,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 if (!bean.getStock().trim().equalsIgnoreCase("0")) {
-                    listner.onClickAddNow(bean);
+                    int selectedPos = 0;
+                    bean.getAttributes().get(selectedPos);
+                    bean.setSelectedAttPos(0);
+                    bean.setAttrId(bean.getAttributes().get(selectedPos).getId());
+                    bean.setSelectedSize(bean.getAttributes().get(selectedPos).getProductAttributes());
+                    bean.setCurrentSelectedPrice(bean.getAttributes().get(selectedPos).getSell_price() == null ? bean.getAttributes().get(selectedPos).getProductPrice() : bean.getAttributes().get(selectedPos).getSell_price());
+                    bean.setProduct_attribute(bean.getAttributes().get(selectedPos).getProductAttributes());
+                    bean.setNarration("");
                     holder.layoutAdd.setVisibility(View.INVISIBLE);
                     holder.layoutAddMore.setVisibility(View.VISIBLE);
                 } else {
@@ -220,6 +226,23 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 listner.onClickAdd(bean);
             }
         });
+
+        if (bean.getSelectedAttPos() > 1){
+            holder.layoutAdd.setVisibility(View.VISIBLE);
+            holder.layoutAdd.setVisibility(View.GONE);
+          /*  int selectedPos = 0;
+            bean.getAttributes().get(selectedPos);
+            bean.setSelectedAttPos(0);
+            bean.setAttrId(bean.getAttributes().get(selectedPos).getId());
+            bean.setSelectedSize(bean.getAttributes().get(selectedPos).getProductAttributes());
+            bean.setCurrentSelectedPrice(bean.getAttributes().get(selectedPos).getSell_price() == null ? bean.getAttributes().get(selectedPos).getProductPrice() : bean.getAttributes().get(selectedPos).getSell_price());
+            bean.setProduct_attribute(bean.getAttributes().get(selectedPos).getProductAttributes());
+            bean.setNarration(binding.narrationEditText.getText().toString().trim());
+            SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);*/
+        }else {
+            holder.layoutAdd.setVisibility(View.GONE);
+            holder.layoutAdd.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

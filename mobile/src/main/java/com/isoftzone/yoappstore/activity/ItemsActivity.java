@@ -213,6 +213,7 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
     @Override
     public void onClickAdd(ProductBean productBean) {
         startActivity(new Intent(this, ProductDetailActivity.class).putExtra("productDetail", productBean));
+        finish();
     }
 
     @Override
@@ -242,7 +243,7 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
 
     ImageView imageImageView;
     ProductBean dialogBeanProduct;
-    TextView salePriceTextView, saveTextView, costTextView, totalTextView;
+    TextView salePriceTextView, costTextView, totalTextView;
     EditText narrationEditText;
 
 
@@ -255,7 +256,6 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
         dialogBeanProduct.setCurrentSelectedPrice(attributesBean.getSell_price() == null ? attributesBean.getProductPrice() : attributesBean.getSell_price());
         dialogBeanProduct.setProduct_attribute(attributesBean.getProductAttributes());
         dialogBeanProduct.setNarration(narrationEditText.getText().toString().trim());
-
         costTextView.setText("₹ " + attributesBean.getProductPrice());
 
         if (attributesBean.getSell_price() != null) {
@@ -280,13 +280,10 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
             salePriceTextView.setText("₹ " + attributesBean.getProductPrice());
             salePriceTextView.setVisibility(View.GONE);
         }
-
         if (dialogBeanProduct.isSelected()) {
             totalTextView.setText("Total ₹ " + (dialogBeanProduct.getQtyActual() * Float.parseFloat(dialogBeanProduct.getCurrentSelectedPrice())));
             SelectedProduct.getInstance().addSingleProduct(dialogBeanProduct);
         }
-
-
     }
 
     private String pathImg = "NONE";
@@ -434,13 +431,10 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
     @Override
     public void sortByLowToHigh() {
         if (productBeanArrayList != null) {
-            Collections.sort(productBeanArrayList, new Comparator<ProductBean>() {
-                @Override
-                public int compare(ProductBean item, ProductBean t1) {
-                    Float s1 = Float.parseFloat(item.getAttributes().get(0).getProductPrice());
-                    Float s2 = Float.parseFloat(t1.getAttributes().get(0).getProductPrice());
-                    return s1.compareTo(s2);
-                }
+            Collections.sort(productBeanArrayList, (item, t1) -> {
+                Float s1 = Float.parseFloat(item.getAttributes().get(0).getProductPrice());
+                Float s2 = Float.parseFloat(t1.getAttributes().get(0).getProductPrice());
+                return s1.compareTo(s2);
             });
             itemsAdapter.notifyDataSetChanged();
         }

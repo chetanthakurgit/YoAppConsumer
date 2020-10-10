@@ -85,6 +85,24 @@ public class ProductDetailActivity extends BaseActivity implements SizeRecyAdapt
 
         binding.qtyTextView.setText("" + bean.getQtyActual());
 
+        if (bean.getSelectedAttPos() != -1){
+            binding.layoutAdd.setVisibility(View.VISIBLE);
+            binding.addCartCardView.setVisibility(View.GONE);
+
+         /*   int selectedPos = 0;
+            bean.getAttributes().get(selectedPos);
+            bean.setSelectedAttPos(0);
+            bean.setAttrId(bean.getAttributes().get(selectedPos).getId());
+            bean.setSelectedSize(bean.getAttributes().get(selectedPos).getProductAttributes());
+            bean.setCurrentSelectedPrice(bean.getAttributes().get(selectedPos).getSell_price() == null ? bean.getAttributes().get(selectedPos).getProductPrice() : bean.getAttributes().get(selectedPos).getSell_price());
+            bean.setProduct_attribute(bean.getAttributes().get(selectedPos).getProductAttributes());
+            bean.setNarration(binding.narrationEditText.getText().toString().trim());*/
+            SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);
+        }else {
+            binding.layoutAdd.setVisibility(View.GONE);
+            binding.addCartCardView.setVisibility(View.VISIBLE);
+        }
+
         binding.commentTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
