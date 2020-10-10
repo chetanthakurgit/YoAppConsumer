@@ -91,9 +91,6 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
 
         setItemsAdapter();
 
-      /*  itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this);
-        binding.itemsRecyclerView.setAdapter(itemsAdapter);
-*/
         binding.checkoutTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

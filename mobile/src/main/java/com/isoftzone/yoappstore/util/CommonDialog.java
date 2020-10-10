@@ -26,7 +26,7 @@ public abstract class CommonDialog extends Dialog implements View.OnClickListene
     private Context context;
     private String message;
     private String checkSting;
-    private int color;
+    private int color = 0;
     private String yesName = "", noName = "";
 
     public CommonDialog(Context context, String message, String checkSting, int color) {
@@ -63,12 +63,15 @@ public abstract class CommonDialog extends Dialog implements View.OnClickListene
         this.getWindow().setAttributes(lWindowParams);
         Objects.requireNonNull(this.getWindow()).getAttributes().windowAnimations = R.style.MsgDialogAnimation;
         TextView tvMsg = this.findViewById(R.id.tvMsg);
-      /*  TextView tvheader = this.findViewById(R.id.tvheader);
-        tvheader.setBackgroundtint*/
 
-        Drawable unwrappedDrawable = AppCompatResources.getDrawable(context, R.drawable.top_rounded_corner);
-        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable,color);
+        if (color!=0) {
+            Drawable unwrappedDrawable = AppCompatResources.getDrawable(context, R.drawable.top_rounded_corner);
+            Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+            DrawableCompat.setTint(wrappedDrawable, color);
+            Drawable unwrappedDrawable1 = AppCompatResources.getDrawable(context, R.drawable.btn_back);
+            Drawable wrappedDrawable1 = DrawableCompat.wrap(unwrappedDrawable1);
+            DrawableCompat.setTint(wrappedDrawable1, color);
+        }
 
         this.findViewById(R.id.ll_parent).setOnClickListener(this);
         Button btnNo = this.findViewById(R.id.btnNo);
