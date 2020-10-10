@@ -110,7 +110,13 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
                 if (arrayListTemporary != null) {
                     arrayListTemporary.clear();
                 }
-                itemsAdapter = new ItemsAdapter(ItemsActivity.this, productBeanArrayList, imageLoader, ItemsActivity.this);
+                itemsAdapter = new ItemsAdapter(ItemsActivity.this, productBeanArrayList, imageLoader, ItemsActivity.this) {
+                    @Override
+                    protected void addToCart(boolean isData) {
+                        cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
+                        cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
+                    }
+                };
                 binding.itemsRecyclerView.setAdapter(itemsAdapter);
 
                 FilterSortingDialog sortingDialog = new FilterSortingDialog(ItemsActivity.this, "forSorting", "", ItemsActivity.this);
@@ -191,7 +197,13 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
     }
 
     private void setItemsAdapter() {
-        itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this);
+        itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this) {
+            @Override
+            protected void addToCart(boolean isData) {
+                cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
+                cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
+            }
+        };
         binding.itemsRecyclerView.setAdapter(itemsAdapter);
     }
 
@@ -381,7 +393,13 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
             arrayListTemporary.clear();
             if (query.equals("")) {
                 arrayListTemporary.addAll(productBeanArrayList);
-                itemsAdapter = new ItemsAdapter(this, arrayListTemporary, imageLoader, this);
+                itemsAdapter = new ItemsAdapter(this, arrayListTemporary, imageLoader, this) {
+                    @Override
+                    protected void addToCart(boolean isData) {
+                        cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
+                        cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
+                    }
+                };
                 binding.itemsRecyclerView.setAdapter(itemsAdapter);
             } else {
                 if (productBeanArrayList != null) {
@@ -391,7 +409,13 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
                         }
                     }
                 }
-                itemsAdapter = new ItemsAdapter(this, arrayListTemporary, imageLoader, this);
+                itemsAdapter = new ItemsAdapter(this, arrayListTemporary, imageLoader, this) {
+                    @Override
+                    protected void addToCart(boolean isData) {
+                        cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
+                        cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
+                    }
+                };
                 binding.itemsRecyclerView.setAdapter(itemsAdapter);
 
             }

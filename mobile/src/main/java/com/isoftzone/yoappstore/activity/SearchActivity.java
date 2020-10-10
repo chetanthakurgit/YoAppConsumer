@@ -46,7 +46,13 @@ public class SearchActivity extends BaseActivity implements CommonInterfaces.get
         productBeanArrayList = new ArrayList<>();
         binding.proceedTextView.setBackgroundColor(themeColor());
 
-        itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this);
+        itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this) {
+            @Override
+            protected void addToCart(boolean isData) {
+                cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
+                cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
+            }
+        };
         binding.productRecyclerView.setAdapter(itemsAdapter);
 
         binding.searchEditText.addTextChangedListener(new TextWatcher() {

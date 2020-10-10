@@ -30,7 +30,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
+public abstract class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
 
     private ArrayList<ProductBean> productBeanArrayList;
     private Context context;
@@ -212,8 +212,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                     bean.setCurrentSelectedPrice(bean.getAttributes().get(selectedPos).getSell_price() == null ? bean.getAttributes().get(selectedPos).getProductPrice() : bean.getAttributes().get(selectedPos).getSell_price());
                     bean.setProduct_attribute(bean.getAttributes().get(selectedPos).getProductAttributes());
                     bean.setNarration("");
+                    SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);
                     holder.layoutAdd.setVisibility(View.INVISIBLE);
                     holder.layoutAddMore.setVisibility(View.VISIBLE);
+                    addToCart(true);
                 } else {
                     Toast.makeText(context, "Item is not available", Toast.LENGTH_SHORT).show();
                 }
@@ -230,16 +232,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         if (bean.getSelectedAttPos() > 1){
             holder.layoutAdd.setVisibility(View.VISIBLE);
             holder.layoutAdd.setVisibility(View.GONE);
-          /*  int selectedPos = 0;
-            bean.getAttributes().get(selectedPos);
-            bean.setSelectedAttPos(0);
-            bean.setAttrId(bean.getAttributes().get(selectedPos).getId());
-            bean.setSelectedSize(bean.getAttributes().get(selectedPos).getProductAttributes());
-            bean.setCurrentSelectedPrice(bean.getAttributes().get(selectedPos).getSell_price() == null ? bean.getAttributes().get(selectedPos).getProductPrice() : bean.getAttributes().get(selectedPos).getSell_price());
-            bean.setProduct_attribute(bean.getAttributes().get(selectedPos).getProductAttributes());
-            bean.setNarration(binding.narrationEditText.getText().toString().trim());
-            SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);*/
-        }else {
+                }else {
             holder.layoutAdd.setVisibility(View.GONE);
             holder.layoutAdd.setVisibility(View.VISIBLE);
         }
@@ -285,4 +278,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             this.layoutAddMore = view.findViewById(R.id.layoutAddMore);
         }
     }
+
+    protected abstract void addToCart(boolean isData);
 }
