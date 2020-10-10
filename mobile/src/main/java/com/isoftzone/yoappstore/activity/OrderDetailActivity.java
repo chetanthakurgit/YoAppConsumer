@@ -13,6 +13,7 @@ import com.isoftzone.yoappstore.baseactivity.BaseActivity;
 
 import com.isoftzone.yoappstore.bean.CompanyDetails;
 import com.isoftzone.yoappstore.bean.OrdersBean;
+import com.isoftzone.yoappstore.bean.SelectedProduct;
 import com.isoftzone.yoappstore.databinding.ActivityOrderDetailBinding;
 
 public class OrderDetailActivity extends BaseActivity {
@@ -100,4 +101,10 @@ public class OrderDetailActivity extends BaseActivity {
         binding.netAmtTextView.setText(" ₹ " + totalAmt);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
+        cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
+    }
 }
