@@ -109,7 +109,7 @@ public class DashBoardActivity extends BaseActivity implements CommonInterfaces.
     }
 
     private void exitDailog() {
-        CommonDialog dialog = new CommonDialog(this, "Are you sure want to exit?", "showYN",themeColor()) {
+        CommonDialog dialog = new CommonDialog(this, "Are you sure want to exit?", "showYN",R.color.black) {
             @Override
             protected void onYes() {
                 dismiss();

@@ -31,10 +31,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingTop="@dimen/size_5dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:paddingBottom="@dimen/size_5dp">
+                    android:padding="@dimen/size_10dp"
+                    >
 
                     <EditText
                         android:id="@+id/searchEditText"

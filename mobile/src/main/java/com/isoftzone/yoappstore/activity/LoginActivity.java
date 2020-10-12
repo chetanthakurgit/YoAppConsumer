@@ -3,18 +3,25 @@ package com.isoftzone.yoappstore.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.core.content.ContextCompat;
 
 import com.isoftzone.yoappstore.R;
+import com.isoftzone.yoappstore.baseactivity.BaseActivity;
 import com.isoftzone.yoappstore.bean.CompanyDetails;
 import com.isoftzone.yoappstore.network.CommonInterfaces;
 import com.isoftzone.yoappstore.network.Constants;
@@ -26,7 +33,7 @@ import com.isoftzone.yoappstore.util.SharedPref;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity implements CommonInterfaces.LoginDelegate, View.OnClickListener {
+public class LoginActivity extends BaseActivity implements CommonInterfaces.LoginDelegate, View.OnClickListener {
     private EditText usernameEditText;
     private EditText passwordEditText;
     private ProgressDialog dialog;
@@ -37,6 +44,15 @@ public class LoginActivity extends AppCompatActivity implements CommonInterfaces
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         config();
+    }
+
+
+    private void setTextViewDrawableColor(TextView textView) {
+        for (Drawable drawable : textView.getCompoundDrawables()) {
+            if (drawable != null) {
+                drawable.setColorFilter(new PorterDuffColorFilter(themeColor(), PorterDuff.Mode.SRC_IN));
+            }
+        }
     }
 
     private void config() {

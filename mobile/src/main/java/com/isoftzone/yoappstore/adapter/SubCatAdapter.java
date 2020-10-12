@@ -42,7 +42,7 @@ public class SubCatAdapter extends RecyclerView.Adapter<SubCatAdapter.MyViewHold
     @NonNull
     @Override
     public SubCatAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (!CompanyDetails.getInstance().getDetails().getSubcat_grid().equalsIgnoreCase("0")) {
+        if (CompanyDetails.getInstance().getDetails().getSubcat_grid().equalsIgnoreCase("0")) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subcat_row, parent, false);
             return new MyViewHolder(view);
         } else {

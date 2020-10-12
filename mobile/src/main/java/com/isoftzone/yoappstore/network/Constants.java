@@ -18,6 +18,7 @@ public class Constants {
     public static String USERDETAIL = "userDetail";
 
     public static final String APIMAIN_URL = "http://yoappstore.com/login/index.php/api/";
+    //  public static final String APIMAIN_URL = "http://yoappstore.com/siyaganjwala/index.php/api/";
     //public static final String APIMAIN_URL = "http://yoappstore.com/bjs_cp/index.php/api/";
     //   public static final String APIMAIN_URL = "http://yoappstore.com/Bhavesh_hardware/index.php/api/";
     //  public static final String APIMAIN_URL = "http://yoappstore.com/Osiya/index.php/api/";

@@ -34,12 +34,9 @@ public class SubCategoryActivity extends BaseActivity implements SubCatAdapter.L
 
     private RecyclerView subCatRecyclerView;
     private SubCatAdapter adapter;
-    String catId;
-    ArrayList<SubCategoryBean> subList;
-    EditText searchEditText;
+    private String catId;
+    private ArrayList<SubCategoryBean> subList;
     private ArrayList<SubCategoryBean> arrayListTemporary;
-    RecyclerView headerRecyclerView;
-    ArrayList<MainCategoryBean> catList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +44,12 @@ public class SubCategoryActivity extends BaseActivity implements SubCatAdapter.L
         setContentView(R.layout.activity_sub_category);
         setCustomToolBar(CompanyDetails.getInstance().getDetails().getCompanyName(), false, true);
         catId = getIntent().getStringExtra("catId");
-        catList = (ArrayList<MainCategoryBean>) getIntent().getSerializableExtra("catList");
+        ArrayList<MainCategoryBean> catList = (ArrayList<MainCategoryBean>) getIntent().getSerializableExtra("catList");
         this.subCatRecyclerView = findViewById(R.id.subCatRecyclerView);
-        this.headerRecyclerView = findViewById(R.id.headerRecyclerView);
+        RecyclerView headerRecyclerView = findViewById(R.id.headerRecyclerView);
 
-        searchEditText = findViewById(R.id.searchEditText);
-        this.headerRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        EditText searchEditText = findViewById(R.id.searchEditText);
+        headerRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         searchEditText.addTextChangedListener(this);
         arrayListTemporary = new ArrayList<>();
 
@@ -68,8 +65,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCatAdapter.L
         }
 
         get_sub_category();
-  }
-
+    }
 
     private void get_sub_category() {
         try {
@@ -93,7 +89,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCatAdapter.L
     public void successSubCategory(ArrayList<SubCategoryBean> subList) {
         dismissDialog();
         this.subList = subList;
-        if (!CompanyDetails.getInstance().getDetails().getSubcat_grid().equalsIgnoreCase("0")) {
+        if (CompanyDetails.getInstance().getDetails().getSubcat_grid().equalsIgnoreCase("0")) {
             this.subCatRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
             adapter = new SubCatAdapter(subList, imageLoader, this, this);
             subCatRecyclerView.setAdapter(adapter);
