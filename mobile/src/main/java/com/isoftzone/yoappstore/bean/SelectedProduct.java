@@ -96,7 +96,7 @@ public class SelectedProduct {
                 for (int i = 0; i < selectedProductList.size(); i++) {
                     ProductBean productBean = selectedProductList.get(i);
                     if (productBean.getId().equalsIgnoreCase(bean.getId()) && productBean.getAttrId().equalsIgnoreCase(bean.getAttrId())) {
-                        int mainQty = productBean.getQtyActual() + bean.getQtyActual();
+                        int mainQty = productBean.getQtyActual()/* + bean.getQtyActual()*/;
                         productBean.setQtyActual(mainQty);
                         break;
                     }
@@ -111,6 +111,29 @@ public class SelectedProduct {
         addCartInPref();
     }
 
+
+    public void addSingleProductDuplicateAlsoT(ProductBean bean) {
+
+        if (isProductFind(bean)) {
+
+            if (isProductFindWithAttrId(bean)) {
+                for (int i = 0; i < selectedProductList.size(); i++) {
+                    ProductBean productBean = selectedProductList.get(i);
+                    if (productBean.getId().equalsIgnoreCase(bean.getId()) && productBean.getAttrId().equalsIgnoreCase(bean.getAttrId())) {
+                        int mainQty = productBean.getQtyActual() ;
+                        productBean.setQtyActual(mainQty);
+                        break;
+                    }
+                }
+            } else {
+                selectedProductList.add(bean);
+            }
+
+        } else {
+            selectedProductList.add(bean);
+        }
+        addCartInPref();
+    }
 
     private void addCartInPref() {
     /*    Gson gson = new Gson();

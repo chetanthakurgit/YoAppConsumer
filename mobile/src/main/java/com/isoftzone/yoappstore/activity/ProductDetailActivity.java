@@ -39,6 +39,7 @@ import com.isoftzone.yoappstore.util.ImageFilePath;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class ProductDetailActivity extends BaseActivity implements SizeRecyAdapter.Listner {
 
@@ -277,10 +278,18 @@ public class ProductDetailActivity extends BaseActivity implements SizeRecyAdapt
         binding.minusTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /* int qty = bean.getQtyActual();
+                if (qty > 1) {
+                    qty--;
+                    bean.setQtyActual(qty);
+                    binding.qtyTextView.setText("" + bean.getQtyActual());
+                }
+*/
                 int qty = bean.getQtyActual();
                 if (qty > 1) {
                     qty--;
                     bean.setQtyActual(qty);
+                    SelectedProduct.getInstance().addSingleProduct(bean);
                     binding.qtyTextView.setText("" + bean.getQtyActual());
                 }
             }
@@ -289,17 +298,38 @@ public class ProductDetailActivity extends BaseActivity implements SizeRecyAdapt
         binding.plusTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /* int qty = bean.getQtyActual();
+                qty++;
+                bean.setQtyActual(qty);
+                binding.qtyTextView.setText("" + bean.getQtyActual());*/
+
                 int qty = bean.getQtyActual();
                 qty++;
                 bean.setQtyActual(qty);
+                bean.setSelected(true);
+                SelectedProduct.getInstance().addSingleProduct(bean);
                 binding.qtyTextView.setText("" + bean.getQtyActual());
+
             }
         });
 
         binding.addCartCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bean.getSelectedAttPos() == -1) {
+                if (!bean.getStock().trim().equalsIgnoreCase("0")) {
+                    int selectedPos = 0;
+                    bean.getAttributes().get(selectedPos);
+                    bean.setSelectedAttPos(0);
+                    bean.setAttrId(bean.getAttributes().get(selectedPos).getId());
+                    bean.setSelectedSize(bean.getAttributes().get(selectedPos).getProductAttributes());
+                    bean.setCurrentSelectedPrice(bean.getAttributes().get(selectedPos).getSell_price() == null ? bean.getAttributes().get(selectedPos).getProductPrice() : bean.getAttributes().get(selectedPos).getSell_price());
+                    bean.setProduct_attribute(bean.getAttributes().get(selectedPos).getProductAttributes());
+                    bean.setNarration("");
+                    SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);
+
+                }
+
+             /*   if (bean.getSelectedAttPos() == -1) {
                     int selectedPos = 0;
                     bean.getAttributes().get(selectedPos);
                     bean.setSelectedAttPos(0);
@@ -308,18 +338,18 @@ public class ProductDetailActivity extends BaseActivity implements SizeRecyAdapt
                     bean.setCurrentSelectedPrice(bean.getAttributes().get(selectedPos).getSell_price() == null ? bean.getAttributes().get(selectedPos).getProductPrice() : bean.getAttributes().get(selectedPos).getSell_price());
                     bean.setProduct_attribute(bean.getAttributes().get(selectedPos).getProductAttributes());
                     bean.setNarration(binding.narrationEditText.getText().toString().trim());
-                }
-                SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);
+                    SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);
+                }*/
+
                 cartCountTextView.setVisibility(View.VISIBLE);
                 cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
 
-               /* Toast.makeText(ProductDetailActivity.this, "Item Added in cart", Toast.LENGTH_SHORT).show();
-                finish();*/
                 binding.addCartCardView.setVisibility(View.GONE);
                 binding.layoutAdd.setVisibility(View.VISIBLE);
 
             }
         });
+
 
         if (bean.getProductImage().size() > 0) {
             final int NUM_PAGES = bean.getProductImage().size();
@@ -355,6 +385,21 @@ public class ProductDetailActivity extends BaseActivity implements SizeRecyAdapt
             });
         }
     }
+
+    public boolean isProductFindWithAttrId(ProductBean bean) {
+
+        boolean isProductFind = false;
+        for (int i = 0; i < SelectedProduct.getInstance().getSelectedProductList().size(); i++) {
+            ProductBean productBean = SelectedProduct.getInstance().getSelectedProductList().get(i);
+            if (productBean.getId().trim().equalsIgnoreCase(bean.getId().trim()) && productBean.getAttrId().equalsIgnoreCase(bean.getAttrId())) {
+                isProductFind = true;
+                break;
+            }
+        }
+
+        return isProductFind;
+    }
+
 
     @Override
     protected void onResume() {

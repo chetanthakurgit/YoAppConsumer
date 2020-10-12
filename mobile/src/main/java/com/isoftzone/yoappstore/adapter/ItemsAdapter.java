@@ -3,7 +3,6 @@ package com.isoftzone.yoappstore.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -215,7 +214,7 @@ public abstract class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyV
                     SelectedProduct.getInstance().addSingleProductDuplicateAlso(bean);
                     holder.layoutAdd.setVisibility(View.INVISIBLE);
                     holder.layoutAddMore.setVisibility(View.VISIBLE);
-                    addToCart(true);
+                    addToCart();
                 } else {
                     Toast.makeText(context, "Item is not available", Toast.LENGTH_SHORT).show();
                 }
@@ -279,5 +278,5 @@ public abstract class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyV
         }
     }
 
-    protected abstract void addToCart(boolean isData);
+    protected abstract void addToCart();
 }

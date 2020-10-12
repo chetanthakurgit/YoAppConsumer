@@ -3,6 +3,7 @@ package com.isoftzone.yoappstore.activity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,14 +26,9 @@ import com.isoftzone.yoappstore.util.SharedPref;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+public class ReviewItemsActivity extends BaseActivity implements CartAdapter.Listner, CommonInterfaces.getPaymentDetails {
 
-public class ReviewItemsActivity extends BaseActivity implements CartAdapter.Listner,
-        CommonInterfaces.getPaymentDetails {
-
-    ActivityReviewItemsBinding binding;
-    CartAdapter adapter;
-    float totalAmt = 0;
-    int totalQty = 0;
+    private ActivityReviewItemsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,24 +38,20 @@ public class ReviewItemsActivity extends BaseActivity implements CartAdapter.Lis
         cartRelativeLayout.setVisibility(View.GONE);
         binding.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.checkoutCardView.setCardBackgroundColor(themeColor());
-        adapter = new CartAdapter(SelectedProduct.getInstance().getSelectedProductList(), imageLoader, this, this);
+        CartAdapter adapter = new CartAdapter(SelectedProduct.getInstance().getSelectedProductList(), imageLoader, this, this);
         binding.cartRecyclerView.setAdapter(adapter);
 
-        binding.nextTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SharedPref.getPrefsHelper().getPref("user") == null || SharedPref.getPrefsHelper().getPref("user").toString().trim().equalsIgnoreCase("")) {
-                    Toast.makeText(ReviewItemsActivity.this, "Please login first", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ReviewItemsActivity.this, LoginActivity.class));
-                    return;
-                }
-                startActivity(new Intent(ReviewItemsActivity.this, PaymentOptionActivity.class));
-                finish();
+        binding.nextTextView.setOnClickListener(v -> {
+            if (SharedPref.getPrefsHelper().getPref("user") == null || SharedPref.getPrefsHelper().getPref("user").toString().trim().equalsIgnoreCase("")) {
+                Toast.makeText(ReviewItemsActivity.this, "Please login first", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ReviewItemsActivity.this, LoginActivity.class));
+                return;
             }
+            startActivity(new Intent(ReviewItemsActivity.this, PaymentOptionActivity.class));
+            finish();
         });
         setNetAmount();
     }
-
 
     @Override
     public void onClickRow(ProductBean productBean) {
@@ -80,7 +72,6 @@ public class ReviewItemsActivity extends BaseActivity implements CartAdapter.Lis
         setNetAmount();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -88,16 +79,11 @@ public class ReviewItemsActivity extends BaseActivity implements CartAdapter.Lis
     }
 
     private void getPaymentDetails() {
-
-        //  showDialog(this);
         if (userBean != null) {
             try {
                 JSONObject object = new JSONObject();
                 object.put("user_id", userBean.getId());
-                //  showDialog(this);
-
                 Log.e("getPaymentDetails=", "=" + userBean.getId());
-
                 RestApiManager.getPaymentDetails(MakeParamsHandler.getRequestBody(object.toString()), this, this);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -105,18 +91,16 @@ public class ReviewItemsActivity extends BaseActivity implements CartAdapter.Lis
         }
     }
 
-
+    @SuppressLint("SetTextI18n")
     private void setNetAmount() {
-        totalAmt = 0;
-        totalQty = 0;
-
+        float totalAmt = 0;
+        int totalQty = 0;
         for (int i = 0; i < SelectedProduct.getInstance().getSelectedProductList().size(); i++) {
             float innerValue = (Float.parseFloat(SelectedProduct.getInstance().getSelectedProductList().get(i).getCurrentSelectedPrice()) * SelectedProduct.getInstance().getSelectedProductList().get(i).getQtyActual());
             totalAmt = totalAmt + innerValue;
             totalQty = totalQty + SelectedProduct.getInstance().getSelectedProductList().get(i).getQtyActual();
         }
         binding.totalAmtTextView.setText(" ₹ " + totalAmt);
-
         binding.totalQtyTextView.setText("" + totalQty);
     }
 
@@ -129,6 +113,4 @@ public class ReviewItemsActivity extends BaseActivity implements CartAdapter.Lis
     public void failure(String error) {
         dismissDialog();
     }
-
-
 }

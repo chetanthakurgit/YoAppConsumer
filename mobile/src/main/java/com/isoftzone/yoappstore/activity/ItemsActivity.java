@@ -112,7 +112,7 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
                 }
                 itemsAdapter = new ItemsAdapter(ItemsActivity.this, productBeanArrayList, imageLoader, ItemsActivity.this) {
                     @Override
-                    protected void addToCart(boolean isData) {
+                    protected void addToCart() {
                         cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
                         cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
                     }
@@ -199,7 +199,7 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
     private void setItemsAdapter() {
         itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this) {
             @Override
-            protected void addToCart(boolean isData) {
+            protected void addToCart() {
                 cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
                 cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
             }
@@ -395,7 +395,7 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
                 arrayListTemporary.addAll(productBeanArrayList);
                 itemsAdapter = new ItemsAdapter(this, arrayListTemporary, imageLoader, this) {
                     @Override
-                    protected void addToCart(boolean isData) {
+                    protected void addToCart() {
                         cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
                         cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
                     }
@@ -411,7 +411,7 @@ public class ItemsActivity extends BaseActivity implements HeaderAdapter.Listner
                 }
                 itemsAdapter = new ItemsAdapter(this, arrayListTemporary, imageLoader, this) {
                     @Override
-                    protected void addToCart(boolean isData) {
+                    protected void addToCart() {
                         cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
                         cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
                     }

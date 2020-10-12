@@ -12,11 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.isoftzone.yoappstore.R;
-import com.isoftzone.yoappstore.adapter.HomeAdapter;
-import com.isoftzone.yoappstore.adapter.HomeGridAdapter;
 import com.isoftzone.yoappstore.adapter.ItemsAdapter;
 import com.isoftzone.yoappstore.baseactivity.BaseActivity;
-import com.isoftzone.yoappstore.bean.CompanyDetails;
 import com.isoftzone.yoappstore.bean.ProductBean;
 import com.isoftzone.yoappstore.bean.SelectedProduct;
 import com.isoftzone.yoappstore.databinding.ActivitySearchBinding;
@@ -48,7 +45,7 @@ public class SearchActivity extends BaseActivity implements CommonInterfaces.get
 
         itemsAdapter = new ItemsAdapter(this, this.productBeanArrayList, imageLoader, this) {
             @Override
-            protected void addToCart(boolean isData) {
+            protected void addToCart() {
                 cartCountTextView.setText("" + SelectedProduct.getInstance().getSelectedProductList().size());
                 cartCountTextView.setVisibility(SelectedProduct.getInstance().getSelectedProductList().size() > 0 ? View.VISIBLE : View.GONE);
             }
