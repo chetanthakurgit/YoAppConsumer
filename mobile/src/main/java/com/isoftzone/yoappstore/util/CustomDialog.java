@@ -1,15 +1,18 @@
 package com.isoftzone.yoappstore.util;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
@@ -18,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,91 +45,72 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
         CommonInterfaces.changePasswordDelegate,
         CommonInterfaces.generateOtpByMobileNo {
 
-    String forWhich;
-    AppCompatActivity context;
-    String someData;
-
-    private ImageView cancelTextImageView;
-
-    private TextView titleTextView, verifyOtpTextView;
-    private ImageView closeImageView;
+    private String forWhich;
+    private AppCompatActivity context;
+    private String someData;
     private EditText oldPasswordEditText, otpEditText, newPassEditText, confirmPassEditText;
-    private EditText emailEditText;
     private EditText mobileEditText;
-    private TextView submitTextView, changeTextView;
-
+    private int color;
     protected ProgressDialog progressDialog;
-
     private EditText passwordForgetdEditText, confirmPassForgetPassEditText;
-    TextView generateOtpTextView, checkOtpTextView, timeTextView, resendOtpTextView;
-    LinearLayout otpSectionLinearLayout, passwordSectionLinearLayout;
+    private TextView generateOtpTextView;
+    private TextView checkOtpTextView;
+    private TextView timeTextView;
+    private LinearLayout otpSectionLinearLayout, passwordSectionLinearLayout;
+    private int time = 90;
+    private CountDownTimer countDownTimer;
+    private  RelativeLayout topView;
 
-
-    public interface Listner {
-        void onClickListner();
-    }
-
-    public CustomDialog(@NonNull AppCompatActivity context, String forWhich, String someData) {
+    public CustomDialog(@NonNull AppCompatActivity context, String forWhich, String someData, int color) {
         super(context);
         this.forWhich = forWhich;
         this.context = context;
         this.someData = someData;
+        this.color = color;
     }
 
-
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        // this.setCancelable(true);
 
+        TextView resendOtpTextView;
+        ImageView closeImageView;
         if (forWhich.equalsIgnoreCase("forServices")) {
-            //  this.setContentView(R.layout.services_dialogxml);
-            //  this.requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-      /*      DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-            int width = metrics.widthPixels;
-            int height = metrics.heightPixels;
-            getWindow().setLayout((5 * width) / 6, (4 * height) / 5);
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-*/
         } else if (forWhich.equalsIgnoreCase(Constants.FOR_FORGET_PASSWORD)) {
             this.setContentView(R.layout.forgot_password);
-            titleTextView = findViewById(R.id.titleTextView);
+            TextView titleTextView = findViewById(R.id.titleTextView);
             closeImageView = findViewById(R.id.closeImageView);
-
-       /*     private EditText otpForForgetPassEditText,passwordForgetdEditText,confirmPassForgetPassEditText ;
-            TextView generateOtpTextView,checkOtpTextView;
-            LinearLayout otpSectionLinearLayout,passwordSectionLinearLayout;
-            */
             mobileEditText = findViewById(R.id.mobileEditText);
             generateOtpTextView = findViewById(R.id.generateOtpTextView);
             resendOtpTextView = findViewById(R.id.resendOtpTextView);
             timeTextView = findViewById(R.id.timeTextView);
-
             otpEditText = findViewById(R.id.otpEditText);
             checkOtpTextView = findViewById(R.id.checkOtpTextView);  // verify button
-            submitTextView = findViewById(R.id.submitTextView);
-
+            TextView submitTextView = findViewById(R.id.submitTextView);
             otpSectionLinearLayout = findViewById(R.id.otpSectionLinearLayout);
             passwordSectionLinearLayout = findViewById(R.id.passwordSectionLinearLayout);
-
             passwordForgetdEditText = findViewById(R.id.passwordForgetdEditText);
             confirmPassForgetPassEditText = findViewById(R.id.confirmPassForgetPassEditText);
-
+             topView = findViewById(R.id.topView);
             checkOtpTextView.setOnClickListener(this);
             generateOtpTextView.setOnClickListener(this);
             resendOtpTextView.setOnClickListener(this);
             closeImageView.setOnClickListener(this);
             submitTextView.setOnClickListener(this);
             titleTextView.setText(someData);
+            setTheamColor(generateOtpTextView);
+            setTheamColor(resendOtpTextView);
+            setTheamColor(checkOtpTextView);
+            setTheamColor(submitTextView);
+            setTheamColor(topView);
 
         } else if (forWhich.equalsIgnoreCase("changePassword")) {
             this.setContentView(R.layout.change_password);
-
             closeImageView = findViewById(R.id.closeImageView);
-            changeTextView = findViewById(R.id.changeTextView);
-
+            TextView changeTextView = findViewById(R.id.changeTextView);
             oldPasswordEditText = findViewById(R.id.oldPasswordEditText);
             newPassEditText = findViewById(R.id.newPassEditText);
             confirmPassEditText = findViewById(R.id.confirmPassEditText);
@@ -133,33 +118,26 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
             changeTextView.setOnClickListener(this);
         } else if (forWhich.equalsIgnoreCase("otp")) {
             this.setContentView(R.layout.otp_verify);
-
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
             int width = metrics.widthPixels;
             int height = metrics.heightPixels;
             getWindow().setLayout((5 * width) / 5, (5 * height) / 5);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-
             closeImageView = findViewById(R.id.closeImageView);
-            verifyOtpTextView = findViewById(R.id.verifyOtpTextView);
+            TextView verifyOtpTextView = findViewById(R.id.verifyOtpTextView);
             otpEditText = findViewById(R.id.otpEditText);
             closeImageView.setOnClickListener(this);
             verifyOtpTextView.setOnClickListener(this);
             resendOtpTextView = findViewById(R.id.resendOtpTextView);
             timeTextView = findViewById(R.id.timeTextView);
             resendOtpTextView.setOnClickListener(this);
-        } /*else if (forWhich.equalsIgnoreCase("otpForLoginScreen")) {
-            this.setContentView(R.layout.otp_forloginscreen);
+        }
 
-            closeImageView = findViewById(R.id.closeImageView);
-            verifyOtpTextView = findViewById(R.id.verifyOtpTextView);
-            otpEditText = findViewById(R.id.otpEditText);
-            closeImageView.setOnClickListener(this);
-            verifyOtpTextView.setOnClickListener(this);
+    }
 
-        }*/
-
+    private void setTheamColor(View view){
+        Drawable backgroundDrawable = DrawableCompat.wrap(view.getBackground()).mutate();
+        DrawableCompat.setTint(backgroundDrawable, color);
     }
 
 
@@ -192,20 +170,16 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
 
     }
 
-    int time = 90;
-    CountDownTimer countDownTimer;
+
 
     private void generateOtpByMobileNo() {
-
         String mobile = mobileEditText.getText().toString().trim();
-
         if (mobile.equalsIgnoreCase("") || mobile.length() < 10) {
             Toast.makeText(context, "Please Enter Valid Mobile number", Toast.LENGTH_SHORT).show();
             return;
         }
         time = 90;
         countDownTimer = new CountDownTimer(90000, 1000) {
-
             public void onTick(long millisUntilFinished) {
                 timeTextView.setText(checkDigit(time));
                 if (Integer.parseInt(checkDigit(time)) <= 0) {
@@ -213,14 +187,10 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
                 }
                 time--;
             }
-
             public void onFinish() {
                 timeTextView.setText("");
             }
-
         }.start();
-
-
         try {
             JSONObject object = new JSONObject();
             object.put("phone_no", mobile);
@@ -232,25 +202,20 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
         }
     }
 
-
     public String checkDigit(int number) {
         return number <= 9 ? "0" + number : String.valueOf(number);
     }
 
     private void verifyOtp() {
-
         String otp = otpEditText.getText().toString().trim();
-
         if (otp.equalsIgnoreCase("")) {
             Toast.makeText(context, "Please Enter OTP", Toast.LENGTH_SHORT).show();
             return;
         }
-
         try {
             JSONObject object = new JSONObject();
             object.put("user_id", someData);
             object.put("otp", otp);
-
             showDialog(context, Constants.PLEASE_WAIT);
             RestApiManager.verifyOtp(MakeParamsHandler.getRequestBody(object.toString()), context, this);
         } catch (JSONException e) {
@@ -261,18 +226,15 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
     private void changePassword() {
         String oldPass = oldPasswordEditText.getText().toString().trim();
         String newPass = newPassEditText.getText().toString().trim();
-
         if (oldPass.equalsIgnoreCase("") || newPass.equalsIgnoreCase("")) {
             Toast.makeText(context, "All Fields are mandatory*", Toast.LENGTH_SHORT).show();
             return;
         }
-
         String confirmPass = confirmPassEditText.getText().toString().trim();
         if (!confirmPass.equals(newPass)) {
             Toast.makeText(context, "Confirm password not match", Toast.LENGTH_SHORT).show();
             return;
         }
-
         try {
             JSONObject object = new JSONObject();
             object.put("user_id", someData);
@@ -289,28 +251,20 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
     private void update_password() {
         String newPas = passwordForgetdEditText.getText().toString().trim();
         String confirmPas = confirmPassForgetPassEditText.getText().toString().trim();
-
         if (!newPas.equalsIgnoreCase(confirmPas)) {
             Toast.makeText(context, "Password not match", Toast.LENGTH_SHORT).show();
             return;
         }
-
         showDialog(context, Constants.PLEASE_WAIT);  // showing progress dialog for waiting
         RestApiManager.forgetPassword(MakeParamsHandler.getRequestBody(getMakeParameter()), context, this);
     }
 
     private String getMakeParameter() {
         JSONObject jsonObject = new JSONObject();
-
-        String newPas = passwordForgetdEditText.getText().toString().trim();
         String confirmPas = confirmPassForgetPassEditText.getText().toString().trim();
-
         try {
             jsonObject.put("user_id", someData);
             jsonObject.put("password", confirmPas);
-
-            //   jsonObject.put("device_id", SharedPref.getPrefsHelper().getPref(Constants.DEVICEID).toString());
-            //   jsonObject.put("device_token", SharedPref.getPrefsHelper().getPref(Constants.DEVICETOKEN));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -348,7 +302,6 @@ public class CustomDialog extends Dialog implements View.OnClickListener,
     public void verifyOtpResp(String resp) {
         dismissDialog();
         Toast.makeText(context, "" + resp, Toast.LENGTH_LONG).show();
-
         if (forWhich.equalsIgnoreCase(Constants.FOR_FORGET_PASSWORD)) {
             passwordSectionLinearLayout.setVisibility(View.VISIBLE);
             mobileEditText.setEnabled(false);

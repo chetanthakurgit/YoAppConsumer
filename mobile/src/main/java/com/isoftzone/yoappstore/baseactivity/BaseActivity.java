@@ -287,7 +287,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, SignUpActivity.class).putExtra("via", "profile"));
                 break;
             case 4:
-                CustomDialog customDialog = new CustomDialog(this, "changePassword", userBean.getId());
+                CustomDialog customDialog = new CustomDialog(this, "changePassword", userBean.getId(), themeColor());
                 customDialog.show();
                 break;
             case 5:

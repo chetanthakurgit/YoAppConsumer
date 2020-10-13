@@ -408,7 +408,7 @@ public class SignUpActivity extends BaseActivity implements CommonInterfaces.Reg
     public void regisSuccess(String msg, String user_id) {
         dismissDialog();
         Toast.makeText(this, "" + msg, Toast.LENGTH_SHORT).show();
-        CustomDialog customDialog = new CustomDialog(this, "otp", user_id);
+        CustomDialog customDialog = new CustomDialog(this, "otp", user_id,themeColor());
         customDialog.show();
     }
 

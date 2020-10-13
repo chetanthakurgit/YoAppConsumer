@@ -3,9 +3,6 @@ package com.isoftzone.yoappstore.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.isoftzone.yoappstore.R;
@@ -97,7 +93,7 @@ public class LoginActivity extends BaseActivity implements CommonInterfaces.Logi
                 finish();
                 break;
             case R.id.forgetPasswordTextView:
-                CustomDialog customDialog = new CustomDialog(LoginActivity.this, Constants.FOR_FORGET_PASSWORD, Constants.TITLE_FORGET_PASSWORD);
+                CustomDialog customDialog = new CustomDialog(LoginActivity.this, Constants.FOR_FORGET_PASSWORD, Constants.TITLE_FORGET_PASSWORD, themeColor());
                 customDialog.show();
                 break;
             case R.id.skipTextView:
@@ -192,7 +188,7 @@ public class LoginActivity extends BaseActivity implements CommonInterfaces.Logi
                 }
 
             } else {
-                CustomDialog customDialog = new CustomDialog(this, "otp", jsonObject.getJSONObject("user").getString("id"));
+                CustomDialog customDialog = new CustomDialog(this, "otp", jsonObject.getJSONObject("user").getString("id"), themeColor());
                 customDialog.show();
             }
         } catch (Exception e) {
