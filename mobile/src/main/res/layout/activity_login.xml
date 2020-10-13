@@ -55,7 +55,6 @@
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/darkGray">
 
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
@@ -68,7 +67,6 @@
                     android:textSize="@dimen/font_size14" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <TextView
                 android:id="@+id/loginTextView"
@@ -119,75 +117,47 @@
 
     </RelativeLayout>
 
-
     <LinearLayout
+        android:id="@+id/signupTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:padding="@dimen/size_15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="Don't have an account"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_size14" />
 
         <LinearLayout
-            android:id="@+id/signupTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_horizontal"
-            android:padding="@dimen/size_15dp">
+            android:layout_marginLeft="3dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_light"
-                android:text="Don't have an account"
-                android:textColor="@color/black"
+                android:text="Sign Up"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/font_size14" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="Sign Up"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/font_size14" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorPrimary" />
-            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
         </LinearLayout>
-
-
-        <!-- <TextView
-             android:id="@+id/signupTextView"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="@dimen/size_10dp"
-             android:background="@drawable/bg_common"
-             android:fontFamily="@font/roboto_light"
-             android:gravity="center"
-             android:paddingLeft="@dimen/size_2dp"
-             android:paddingTop="@dimen/size_10dp"
-             android:paddingRight="@dimen/size_2dp"
-             android:paddingBottom="@dimen/size_10dp"
-             android:text="Sign Up"
-             android:textColor="@color/white"
-             android:textColorHint="@color/colorPrimary"
-             android:textSize="@dimen/font_size13"
-             android:visibility="gone" />-->
-
 
         <TextView
             android:id="@+id/skipTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/size_5dp"
+            android:layout_marginEnd="@dimen/size_5dp"
             android:fontFamily="@font/roboto_light"
             android:gravity="center"
             android:paddingLeft="@dimen/size_2dp"
@@ -201,4 +171,5 @@
             android:visibility="gone" />
 
     </LinearLayout>
+    
 </RelativeLayout>

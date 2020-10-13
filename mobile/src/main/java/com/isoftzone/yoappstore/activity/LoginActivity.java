@@ -46,15 +46,6 @@ public class LoginActivity extends BaseActivity implements CommonInterfaces.Logi
         config();
     }
 
-
-    private void setTextViewDrawableColor(TextView textView) {
-        for (Drawable drawable : textView.getCompoundDrawables()) {
-            if (drawable != null) {
-                drawable.setColorFilter(new PorterDuffColorFilter(themeColor(), PorterDuff.Mode.SRC_IN));
-            }
-        }
-    }
-
     private void config() {
         isComesFromSplash = getIntent().getBooleanExtra("isComesFromSplash", false);
         this.passwordEditText = findViewById(R.id.passwordEditText);
