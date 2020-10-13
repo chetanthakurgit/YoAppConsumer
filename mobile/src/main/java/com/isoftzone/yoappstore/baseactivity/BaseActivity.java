@@ -3,6 +3,7 @@ package com.isoftzone.yoappstore.baseactivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -121,6 +123,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     protected int themeColor() {
         return Color.parseColor(CompanyDetails.getInstance().getDetails().getThemeColor());
+    }
+
+    protected void setTheamColor(View view){
+        Drawable backgroundDrawable = DrawableCompat.wrap(view.getBackground()).mutate();
+        DrawableCompat.setTint(backgroundDrawable, themeColor());
     }
 
     private void setDrawerItems() {

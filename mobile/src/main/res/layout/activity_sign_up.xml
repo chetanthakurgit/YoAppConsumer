@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/verylightgray">
@@ -35,7 +35,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_alignParentStart="true"
-                            android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true">
 
                             <RelativeLayout
@@ -45,18 +44,19 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/size_20dp"
                                 android:clickable="true"
+                                android:focusable="true"
                                 android:orientation="horizontal">
 
                                 <com.isoftzone.yoappstore.util.CircularImageView
                                     android:id="@+id/logoImageView"
                                     android:layout_width="@dimen/size_80dp"
                                     android:layout_height="@dimen/size_80dp"
-                                    android:background="@drawable/usercolor" />
+                                    android:background="@drawable/ic_user" />
 
                                 <ImageView
                                     android:layout_width="@dimen/size_20dp"
                                     android:layout_height="@dimen/size_20dp"
-                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
                                     android:layout_alignParentBottom="true"
                                     android:src="@drawable/camera" />
 
@@ -82,8 +82,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="-7dp"
-                                        android:layout_marginLeft="-7dp"
                                         android:hint="Enter Full Name *"
+                                        android:theme="@style/EditTextTheme"
                                         android:textColorHint="@color/darkGray">
 
                                         <com.google.android.material.textfield.TextInputEditText
@@ -93,6 +93,7 @@
                                             android:background="@drawable/line_spinner"
                                             android:fontFamily="@font/roboto_light"
                                             android:inputType="text"
+                                            android:theme="@style/EditTextTheme"
                                             android:padding="@dimen/size_10dp"
                                             android:textColor="@color/black"
                                             android:textSize="@dimen/font_size13" />
@@ -103,8 +104,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="-7dp"
-                                        android:layout_marginLeft="-7dp"
                                         android:layout_marginTop="@dimen/size_10dp"
+                                        android:theme="@style/EditTextTheme"
                                         android:hint="Enter Mobile number *"
                                         android:textColorHint="@color/darkGray">
 
@@ -115,6 +116,7 @@
                                             android:background="@drawable/line_spinner"
                                             android:fontFamily="@font/roboto_light"
                                             android:inputType="number"
+                                            android:theme="@style/EditTextTheme"
                                             android:maxLength="10"
                                             android:padding="@dimen/size_10dp"
                                             android:textColor="@color/black"
@@ -126,7 +128,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="-7dp"
-                                        android:layout_marginLeft="-7dp"
+                                        android:theme="@style/EditTextTheme"
                                         android:layout_marginTop="@dimen/size_10dp"
                                         android:hint="Enter Email Address *"
                                         android:textColorHint="@color/darkGray">
@@ -137,6 +139,7 @@
                                             android:layout_height="wrap_content"
                                             android:background="@drawable/line_spinner"
                                             android:fontFamily="@font/roboto_light"
+                                            android:theme="@style/EditTextTheme"
                                             android:inputType="textEmailAddress"
                                             android:padding="@dimen/size_10dp"
                                             android:textColor="@color/black"
@@ -149,11 +152,11 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="-7dp"
-                                        android:layout_marginLeft="-7dp"
                                         android:layout_marginTop="@dimen/size_10dp"
+                                        android:theme="@style/EditTextTheme"
                                         android:hint="Create Password *"
                                         android:textColorHint="@color/darkGray"
-                                        app:endIconMode="password_toggle"
+                                        app:passwordToggleEnabled="true"
                                         app:passwordToggleTint="@color/darkGray">
 
                                         <com.google.android.material.textfield.TextInputEditText
@@ -161,6 +164,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:background="@drawable/line_spinner"
+                                            android:theme="@style/EditTextTheme"
                                             android:fontFamily="@font/roboto_light"
                                             android:inputType="textPassword"
                                             android:padding="@dimen/size_10dp"
@@ -169,13 +173,12 @@
 
                                     </com.google.android.material.textfield.TextInputLayout>
 
-
                                     <com.google.android.material.textfield.TextInputLayout
                                         android:id="@+id/confirmPassTextInputLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="-7dp"
-                                        android:layout_marginLeft="-7dp"
+                                        android:theme="@style/EditTextTheme"
                                         android:layout_marginTop="@dimen/size_10dp"
                                         android:hint="Confirm Password *"
                                         android:textColorHint="@color/darkGray">
@@ -184,6 +187,7 @@
                                             android:id="@+id/confirmPassEditText"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:theme="@style/EditTextTheme"
                                             android:background="@drawable/line_spinner"
                                             android:fontFamily="@font/roboto_light"
                                             android:inputType="textPassword"
@@ -200,7 +204,6 @@
                                         android:layout_marginTop="@dimen/size_10dp"
                                         android:background="@drawable/line_spinner"
                                         android:hint="Select DOB"
-                                        android:inputType="text"
                                         android:padding="@dimen/size_10dp"
                                         android:singleLine="true"
                                         android:text=""
@@ -216,7 +219,6 @@
                                         android:layout_marginTop="@dimen/size_10dp"
                                         android:background="@drawable/line_spinner"
                                         android:hint="Select Anniversary Date"
-                                        android:inputType="text"
                                         android:padding="@dimen/size_10dp"
                                         android:singleLine="true"
                                         android:text=""
@@ -244,9 +246,9 @@
                                         <ImageView
                                             android:layout_width="@dimen/size_20dp"
                                             android:layout_height="@dimen/size_20dp"
-                                            android:layout_alignParentRight="true"
+                                            android:layout_alignParentEnd="true"
                                             android:layout_centerVertical="true"
-                                            android:src="@drawable/ic_keyboard_arrow_down" />
+                                            app:srcCompat="@drawable/ic_keyboard_arrow_down" />
 
                                     </RelativeLayout>
 
@@ -256,8 +258,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="-7dp"
-                                        android:layout_marginLeft="-7dp"
                                         android:layout_marginTop="@dimen/size_10dp"
+                                        android:theme="@style/EditTextTheme"
                                         android:hint="Referral code (Optional) "
                                         android:textColorHint="@color/darkGray"
                                         android:visibility="gone">
@@ -269,6 +271,7 @@
                                             android:background="@drawable/line_spinner"
                                             android:fontFamily="@font/roboto_light"
                                             android:inputType="text"
+                                            android:theme="@style/EditTextTheme"
                                             android:padding="@dimen/size_10dp"
                                             android:textColor="@color/black"
                                             android:textSize="@dimen/font_size14" />
@@ -281,7 +284,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="-7dp"
-                                        android:layout_marginLeft="-7dp"
+                                        android:theme="@style/EditTextTheme"
                                         android:layout_marginTop="@dimen/size_10dp"
                                         android:hint="Referral code shop (Optional) "
                                         android:textColorHint="@color/darkGray"
@@ -294,6 +297,7 @@
                                             android:background="@drawable/line_spinner"
                                             android:fontFamily="@font/roboto_light"
                                             android:inputType="text"
+                                            android:theme="@style/EditTextTheme"
                                             android:padding="@dimen/size_10dp"
                                             android:textColor="@color/black"
                                             android:textSize="@dimen/font_size14" />
@@ -311,7 +315,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:background="@drawable/ed_rounded"
-                                            android:gravity="left"
+                                            android:gravity="start"
                                             android:hint="Address"
                                             android:lines="2"
                                             android:padding="@dimen/size_10dp"
@@ -326,25 +330,35 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content">
 
-                                        <TextView
-                                            android:id="@+id/signupTextView"
+
+                                        <androidx.cardview.widget.CardView
+                                            android:id="@+id/addCartCardView"
                                             android:layout_width="match_parent"
-                                            android:layout_height="@dimen/standard_height"
+                                            android:layout_height="wrap_content"
                                             android:layout_marginTop="@dimen/size_10dp"
-                                            android:background="@drawable/bg_common"
-                                            android:gravity="center"
-                                            android:text="Registered &amp; Generate Otp"
-                                            android:textColor="@color/white"
-                                            android:textSize="@dimen/font_size13"
-                                            android:textStyle="normal" />
+                                            app:cardBackgroundColor="@color/colorPrimary"
+                                            app:cardCornerRadius="@dimen/size_5dp">
+
+                                            <TextView
+                                                android:id="@+id/signupTextView"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:padding="@dimen/size_10dp"
+                                                android:text="Registered &amp; Generate Otp"
+                                                android:textColor="@color/white"
+                                                android:textSize="@dimen/font_size13"
+                                                android:textStyle="normal" />
+
+                                        </androidx.cardview.widget.CardView>
 
                                         <ProgressBar
                                             android:id="@+id/progressProgressBar"
                                             android:layout_width="@dimen/size_20dp"
                                             android:layout_height="@dimen/size_20dp"
-                                            android:layout_alignParentRight="true"
+                                            android:layout_alignParentEnd="true"
                                             android:layout_marginTop="@dimen/size_20dp"
-                                            android:layout_marginRight="@dimen/size_10dp"
+                                            android:layout_marginEnd="@dimen/size_10dp"
                                             android:progressTint="@color/colorPrimary"
                                             android:visibility="gone" />
 
@@ -368,9 +382,9 @@
             android:id="@+id/layoutBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginEnd="@dimen/size_20dp"
             android:padding="@dimen/size_5dp"
             android:text="Powered by i-SOFTZONE"
             android:textColor="@color/colorPrimary"

@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-7dp"
                 android:hint="Enter Mobile/Email"
+                android:theme="@style/EditTextTheme"
                 android:textColorHint="@color/darkGray">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -40,6 +41,7 @@
                     android:fontFamily="@font/roboto_light"
                     android:inputType="text"
                     android:padding="@dimen/size_10dp"
+                    android:theme="@style/EditTextTheme"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size14" />
 
@@ -50,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-7dp"
                 android:layout_marginTop="@dimen/size_10dp"
+                android:theme="@style/EditTextTheme"
                 android:hint="Enter Password"
                 android:textColorHint="@color/darkGray"
                 app:passwordToggleEnabled="true"
@@ -62,6 +65,7 @@
                     android:background="@drawable/line_spinner"
                     android:fontFamily="@font/roboto_light"
                     android:inputType="textPassword"
+                    android:theme="@style/EditTextTheme"
                     android:padding="@dimen/size_10dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size14" />
@@ -106,8 +110,7 @@
                         android:paddingRight="@dimen/size_2dp"
                         android:paddingBottom="@dimen/size_10dp"
                         android:text="Forgot password ?"
-                        android:textColor="@color/colorPrimary"
-                        android:textColorHint="@color/colorPrimary"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_size13" />
                 </LinearLayout>
 
@@ -136,7 +139,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:orientation="vertical">
 
             <TextView
@@ -144,13 +147,13 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_light"
                 android:text="Sign Up"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/black"
                 android:textSize="@dimen/font_size14" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorPrimary" />
+                android:background="@color/black" />
         </LinearLayout>
 
         <TextView
@@ -166,7 +169,7 @@
             android:paddingBottom="@dimen/size_10dp"
             android:text="Skip 	&#x2192;"
             android:textColor="@color/darkGray"
-            android:textColorHint="@color/colorPrimary"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/font_size13"
             android:visibility="gone" />
 

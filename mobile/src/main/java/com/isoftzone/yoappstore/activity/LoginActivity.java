@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.isoftzone.yoappstore.R;
 import com.isoftzone.yoappstore.baseactivity.BaseActivity;
@@ -47,6 +48,17 @@ public class LoginActivity extends BaseActivity implements CommonInterfaces.Logi
     }
 
     private void config() {
+
+        TextView loginTextView = findViewById(R.id.loginTextView);
+        Drawable backgroundDrawable = DrawableCompat.wrap(loginTextView.getBackground()).mutate();
+        DrawableCompat.setTint(backgroundDrawable, themeColor());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(themeColor());
+        }
+
         isComesFromSplash = getIntent().getBooleanExtra("isComesFromSplash", false);
         this.passwordEditText = findViewById(R.id.passwordEditText);
         this.usernameEditText = findViewById(R.id.usernameEditText);

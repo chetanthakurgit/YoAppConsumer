@@ -63,22 +63,21 @@ public abstract class CommonDialog extends Dialog implements View.OnClickListene
         this.getWindow().setAttributes(lWindowParams);
         Objects.requireNonNull(this.getWindow()).getAttributes().windowAnimations = R.style.MsgDialogAnimation;
         TextView tvMsg = this.findViewById(R.id.tvMsg);
-
-        if (color!=0) {
-            Drawable unwrappedDrawable = AppCompatResources.getDrawable(context, R.drawable.top_rounded_corner);
-            Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-            DrawableCompat.setTint(wrappedDrawable, color);
-            Drawable unwrappedDrawable1 = AppCompatResources.getDrawable(context, R.drawable.btn_back);
-            Drawable wrappedDrawable1 = DrawableCompat.wrap(unwrappedDrawable1);
-            DrawableCompat.setTint(wrappedDrawable1, color);
-        }
-
         this.findViewById(R.id.ll_parent).setOnClickListener(this);
         Button btnNo = this.findViewById(R.id.btnNo);
         btnNo.setOnClickListener(this);
         Button btnYes = this.findViewById(R.id.btnYes);
         btnYes.setOnClickListener(this);
         tvMsg.setText(message);
+
+        if (color!=0) {
+            TextView tvheader = this.findViewById(R.id.tvheader);
+            setTheamColor(tvheader);
+            setTheamColor(btnNo);
+            setTheamColor(btnYes);
+        }
+
+
         if (checkSting.endsWith("Refresh")) {
             this.findViewById(R.id.llYesNo).setVisibility(View.VISIBLE);
             btnYes.setVisibility(View.VISIBLE);
@@ -98,6 +97,11 @@ public abstract class CommonDialog extends Dialog implements View.OnClickListene
         if (!noName.equalsIgnoreCase("")) {
             btnNo.setText(noName);
         }
+    }
+
+    private void setTheamColor(View view){
+        Drawable backgroundDrawable = DrawableCompat.wrap(view.getBackground()).mutate();
+        DrawableCompat.setTint(backgroundDrawable, color);
     }
 
     @Override

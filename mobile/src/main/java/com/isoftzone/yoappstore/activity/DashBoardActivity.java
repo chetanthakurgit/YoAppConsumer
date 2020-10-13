@@ -109,7 +109,7 @@ public class DashBoardActivity extends BaseActivity implements CommonInterfaces.
     }
 
     private void exitDailog() {
-        CommonDialog dialog = new CommonDialog(this, "Are you sure want to exit?", "showYN",R.color.black) {
+        CommonDialog dialog = new CommonDialog(this, "Are you sure want to exit?", "showYN",themeColor()) {
             @Override
             protected void onYes() {
                 dismiss();
@@ -269,7 +269,7 @@ public class DashBoardActivity extends BaseActivity implements CommonInterfaces.
         if (CompanyDetails.getInstance().getDetails().getProduct_view().equalsIgnoreCase("list")) {
             homeRecyclerView.setVisibility(View.VISIBLE);
             gridRecyclerView.setVisibility(View.GONE);
-            HomeAdapter homeAdapter = new HomeAdapter(homeModelArrayList, imageLoader, this, this);
+            HomeAdapter homeAdapter = new HomeAdapter(homeModelArrayList, imageLoader, this, this,themeColor());
             homeRecyclerView.setAdapter(homeAdapter);
         } else {
             gridRecyclerView.setVisibility(View.VISIBLE);

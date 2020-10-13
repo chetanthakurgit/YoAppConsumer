@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +23,9 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.isoftzone.yoappstore.R;
@@ -65,6 +68,8 @@ public class SignUpActivity extends BaseActivity implements CommonInterfaces.Reg
     }
 
     private void config() {
+        binding.addCartCardView.setCardBackgroundColor(themeColor());
+
         this.binding.signupTextView.setOnClickListener(this);
         this.binding.dobTextView.setOnClickListener(this);
         this.binding.anniversaryTextView.setOnClickListener(this);

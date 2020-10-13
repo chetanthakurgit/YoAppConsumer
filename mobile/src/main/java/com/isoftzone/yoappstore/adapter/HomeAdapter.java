@@ -32,14 +32,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     private Context context;
     private CommonInterfaces.RecyclerClickDelegate recyclerClickDelegate;
     protected ImageLoader imageLoader;
+    private int color;
 
     public HomeAdapter(ArrayList<MainCategoryBean> homeModelArrayList, ImageLoader imageLoader, Context context,
-                       CommonInterfaces.RecyclerClickDelegate recyclerClickDelegate) {
+                       CommonInterfaces.RecyclerClickDelegate recyclerClickDelegate, int color) {
 
         this.homeModelArrayList = homeModelArrayList;
         this.imageLoader = imageLoader;
         this.context = context;
         this.recyclerClickDelegate = recyclerClickDelegate;
+        this.color = color;
     }
 
     @NonNull
@@ -53,6 +55,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         final MainCategoryBean homeModel = homeModelArrayList.get(position);
         holder.titleTextView.setText(homeModel.getCategoryName());
+        holder.titleTextView.setTextColor(color);
         String imgPath = homeModel.getThumbnail_image().trim().replaceAll(" ", "%20");
         imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(imgPath, holder.homeRowIcon, new ImageLoadingListener() {
